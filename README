@@ -1,0 +1,7 @@
+Installation :
+
+    git clone https://paul_roseau@bitbucket.org/paul_roseau/vimrc.git
+
+Create symlinks :
+
+    ln -s ~/.vim/vimrc ~/.vimrc
