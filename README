@@ -1,6 +1,6 @@
 Installation :
 
-    git clone https://paul_roseau@bitbucket.org/paul_roseau/vimrc.git
+    git clone ssh://git@bitbucket.org/paul_roseau/vimrc.git ~/.vim
 
 Create symlinks :
 
