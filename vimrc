@@ -1,60 +1,106 @@
-" Load all plugins with pathogen and make documentation available
-call pathogen#runtime_append_all_bundles()
+" Loads all plugins with pathogen and make documentation available
+call pathogen#infect()
 call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
 
 " GENERAL SETTINGS
 
-" automatic coloring
+" Automatic coloring
 if version >= 600
     syntax enable " This command executes :source $VIMRUNTIME/syntax/syntax.vim. With this command you can use the :highlight command to set your preferred colors.
 else	
     syntax on " With this command Vim will overrule your settings.
 endif
 
-" hides buffer automatically when switching to another buffer
+" Hides buffer automatically when switching to another buffer
 set hidden 
-" show line numbers
+
+" Shows line numbers
 set number
+
+" Colors suitable for dark background
 set background=dark
-" set filetype detection on (this uses file extension)
+
+" Sets filetype detection on (this uses file extension)
 if has("autocmd")
     " the if has("autocmd") is there to ensure portability since the following option doesn't work if vim hasn't been compiled with the autocmd flag. You can check if it is the case with the command :version
     filetype plugin indent on
 end
 
-" MAPPINGS
+" Avoids 'Hit return to continue' message
+set shortmess=a
 
-" Switch between buffers
+" Prevents long line to go off screen
+set wrap
+
+" Sets limit of lines width (0 if no limit)
+set textwidth=80
+
+" Prevents vim to cut a word in the middle of a word 
+set linebreak " doesn't work if the list option is on! set nolist
+
+" Searching parameters
+set smartcase
+set incsearch
+set hlsearch
+
+" Shows matching parenthesis
+set showmatch
+
+" Indentation
+set autoindent
+set smartindent
+set shiftwidth=2
+
+" Tabs and spaces
+set expandtab " converts tab in a number of spaces
+set tabstop=4 " sets tab character to correspond to x columns. When there is an offset of x columns it is automatically converted to a tab character. If the expandtab option is set then the tab character will in turn be converted to x spaces.
+set softtabstop=4 " sets the number of columns offset when PRESSING the tab key or the backspace key. It doesn't necessarily inserts or remove a tab character, just the proper number of columns.
+set shiftwidth=4 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
+
+" GENERAL MAPPINGS
+
+" Switches between buffers
 map <C-L> :bn<CR>
 map <C-H> :bp<CR>
 
-" Unlist the current buffer and switch to the next/previous one
+" Unlists the current buffer and switch to the next/previous one
 command! BDN :bn | :bd#
 command! BDP :bp | :bd#
 map <S-L> :BDN<CR>
 map <S-H> :BDP<CR>
 
-" Shortcut to show GundoToggle
+" Reminder : noremap avoids recursive resolution of mapping but as long as we don't remap g<C-]> it is fine here
+" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag which jumps to the first match, whereas g<C-]> is mapped to :tjump which displays the list if multiple matches exist.
+noremap <C-]> g<C-]>
+
+" Switches from one match for a tag to another
+map <C-Down> :tnext<CR>
+map <C-Up> :tprevious<CR>
+
+" Bubbles single lines
+nmap <C-K> ddkP
+nmap <C-J> ddp
+
+" Bubbles multiple lines (`[ is the default mark for the last selection start point, `] for last selection end point)
+vmap <C-K> xkP`[V`] 
+vmap <C-J> xp`[V`]
+
+
+" PLUGINS MAPPINGS
+
+" Targets the current opened buffer in NERDTree
+map ,n :NERDTreeFind <CR>
+
+" Shortcuts to show GundoToggle
 nnoremap <F5> :GundoToggle<CR>
 
 " ----- ARJUN STUFF, to clean
 
-
  " -------------------------------------------------------- Source display
- " No linefeed forced ever
- set tw=0
- " and wrap at the end of window (no horizontal scrollbar)
- set wrap
  " Unix files
  set fileformat=unix
  " do not allow actual rendering of html tags content
  let html_no_rendering=1
- " ident control
- set autoindent
- set smartindent
- set shiftwidth=2
- " I want to see matching parenthesis
- set showmatch
  " backspace control
  set bs=indent,eol,start
  " automatic syntax coloring
@@ -77,10 +123,6 @@ nnoremap <F5> :GundoToggle<CR>
 
  " -------------------------------------------------------- Searching
  " search incrementaly and smartly
- set smartcase
- set incsearch
- " highlight search results
- set hlsearch
 
  " ------------------------------------------------------- Programming
  " for correct ctags and cscope handling (alternative is required
@@ -131,7 +173,6 @@ nnoremap <F5> :GundoToggle<CR>
  map <C-S-PAGEUP> :Df 1<CR>
  map <C-PAGEDOWN> zR
 
- map ,n :NERDTreeFind <CR>
 
  " Vimcasts.org 
 
@@ -142,12 +183,6 @@ set listchars=tab:▸\ ,eol:¬
 " ▸ = u25b8, ¬ = u00ac (insert unicode symbol with crtl-V in insert mode) 
 " ctrl-V ctrl-I inserts tab character
 
-" #2 Tabs and spaces
-
-set expandtab " converts tab in a number of spaces
-set tabstop=4 " sets tab character to correspond to x columns. When there is an offset of x columns it is automatically converted to a tab character. If the expandtab option is set then the tab character will in turn be converted to x spaces.
-set softtabstop=4 " sets the number of columns offset when PRESSING the tab key or the backspace key. It doesn't necessarily inserts or remove a tab character, just the proper number of columns.
-set shiftwidth=4 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
 " #3 Whitespace preferences and filetype
 
