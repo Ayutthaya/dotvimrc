@@ -27,7 +27,7 @@ if has("autocmd")
 end
 
 " Avoids 'Hit return to continue' message
-set shortmess=a
+set shortmess=atT
 
 " Prevents long line to go off screen
 set wrap
@@ -84,7 +84,6 @@ nmap <C-J> ddp
 " Bubbles multiple lines (`[ is the default mark for the last selection start point, `] for last selection end point)
 vmap <C-K> xkP`[V`] 
 vmap <C-J> xp`[V`]
-
 
 " PLUGINS MAPPINGS
 
@@ -153,8 +152,7 @@ nnoremap <F5> :GundoToggle<CR>
  map <S-F3> [I
  map <F4> :nohl<CR>
 
- " ,e/,w to open/save a file in the same directory as the currently edited
- file
+ " ,e/,w to open/save a file in the same directory as the currently edited file
  if has("unix")
  map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
  map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
@@ -173,10 +171,9 @@ nnoremap <F5> :GundoToggle<CR>
  map <C-S-PAGEUP> :Df 1<CR>
  map <C-PAGEDOWN> zR
 
+" Vimcasts.org 
 
- " Vimcasts.org 
-
- " #1 Show invisibles
+" #1 Show invisibles
 
 nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
