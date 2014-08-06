@@ -59,11 +59,14 @@ set shiftwidth=4 " sets the number of columns offset when in normal mode using t
 
 " GENERAL MAPPINGS
 
+let mapleader=","
+
 " Switches between buffers
 map <C-L> :bn<CR>
 map <C-H> :bp<CR>
 
-" Unlists the current buffer and switch to the next/previous one
+" Unlists the current buffer and switch to the next/previous one (reminder if
+" you want to really delete the buffer, you need to use bwipeout)
 command! BDN :bn | :bd#
 command! BDP :bp | :bd#
 map <S-L> :BDN<CR>
@@ -85,10 +88,16 @@ nmap <C-J> ddp
 vmap <C-K> xkP`[V`] 
 vmap <C-J> xp`[V`]
 
+" Removes search highlighting
+map <leader>t :nohlsearch<CR>
+
 " PLUGINS MAPPINGS
 
+" NERDTree
+map <F4> :NERDTree <CR>
+
 " Targets the current opened buffer in NERDTree
-map ,n :NERDTreeFind <CR>
+map <leader>n :NERDTreeFind <CR>
 
 " Shortcuts to show GundoToggle
 nnoremap <F5> :GundoToggle<CR>
@@ -102,7 +111,6 @@ nnoremap <F5> :GundoToggle<CR>
  let html_no_rendering=1
  " backspace control
  set bs=indent,eol,start
- " automatic syntax coloring
 
  " ----------------------------------------------- status line
  " also see colorscheme in tgo.vim
@@ -150,7 +158,6 @@ nnoremap <F5> :GundoToggle<CR>
  " ------------------------------------------------------ Key Maps
  map <F3> n
  map <S-F3> [I
- map <F4> :nohl<CR>
 
  " ,e/,w to open/save a file in the same directory as the currently edited file
  if has("unix")
@@ -171,7 +178,7 @@ nnoremap <F5> :GundoToggle<CR>
  map <C-S-PAGEUP> :Df 1<CR>
  map <C-PAGEDOWN> zR
 
-" Vimcasts.org 
+" From Vimcasts.org 
 
 " #1 Show invisibles
 
@@ -189,5 +196,6 @@ set listchars=tab:▸\ ,eol:¬
 " You can inquire about the filetype of a buffer with :set filetype?, and you can set it with set filetype myFileType.
 
 " #4 Tidying whitespaces
+
 " To convert spaces in tab and conversely use :retab!
 " To remove trailing spaces usr :%s/\s\+$//e. \s stands for space, \+ means it should occur once or several times, the e at the end tells vim to ignore errors.
