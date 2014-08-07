@@ -51,15 +51,27 @@ set autoindent
 set smartindent
 set shiftwidth=2
 
+" Sources the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
+
 " Tabs and spaces
 set expandtab " converts tab in a number of spaces
-set tabstop=4 " sets tab character to correspond to x columns. When there is an offset of x columns it is automatically converted to a tab character. If the expandtab option is set then the tab character will in turn be converted to x spaces.
-set softtabstop=4 " sets the number of columns offset when PRESSING the tab key or the backspace key. It doesn't necessarily inserts or remove a tab character, just the proper number of columns.
-set shiftwidth=4 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
+set tabstop=2 " sets tab character to correspond to x columns. When there is an offset of x columns it is automatically converted to a tab character. If the expandtab option is set then the tab character will in turn be converted to x spaces.
+set softtabstop=2 " sets the number of columns offset when PRESSING the tab key or the backspace key. It doesn't necessarily inserts or remove a tab character, just the proper number of columns.
+set shiftwidth=2 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
 " GENERAL MAPPINGS
 
-let mapleader=","
+let mapleader = ","
+
+" <Esc> is kind of far away
+inoremap <A-E> <Esc>
+
+" Shortcut to edit .vimrc
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Switches between buffers
 map <C-L> :bn<CR>
@@ -105,7 +117,7 @@ nnoremap <F5> :GundoToggle<CR>
 " ----- ARJUN STUFF, to clean
 
  " -------------------------------------------------------- Source display
- " Unix files
+" Unix files
  set fileformat=unix
  " do not allow actual rendering of html tags content
  let html_no_rendering=1
@@ -128,8 +140,6 @@ nnoremap <F5> :GundoToggle<CR>
  set foldlevel=1
  endif
 
- " -------------------------------------------------------- Searching
- " search incrementaly and smartly
 
  " ------------------------------------------------------- Programming
  " for correct ctags and cscope handling (alternative is required
@@ -159,7 +169,7 @@ nnoremap <F5> :GundoToggle<CR>
  map <F3> n
  map <S-F3> [I
 
- " ,e/,w to open/save a file in the same directory as the currently edited file
+ " ,e/,w to open/save a file in the same directory as the currently edited
  if has("unix")
  map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
  map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
@@ -182,7 +192,7 @@ nnoremap <F5> :GundoToggle<CR>
 
 " #1 Show invisibles
 
-nmap <leader>l :set list!<CR>
+map <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 " ▸ = u25b8, ¬ = u00ac (insert unicode symbol with crtl-V in insert mode) 
 " ctrl-V ctrl-I inserts tab character
