@@ -67,9 +67,6 @@ set shiftwidth=2 " sets the number of columns offset when in normal mode using t
 
 let mapleader = ","
 
-" <Esc> is kind of far away
-inoremap <A-E> <Esc>
-
 " Shortcut to edit .vimrc
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
