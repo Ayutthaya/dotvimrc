@@ -96,6 +96,18 @@ noremap <C-]> g<C-]>
 noremap <C-Up> :tprevious<CR>
 noremap <C-Down> :tnext<CR>
 
+" little hack to make the Alt key work on vim for some keys
+set <A-L>=l 
+set <A-K>=k
+set <A-J>=j
+set <A-H>=h
+" The time in milliseconds that is waited for a key code or mapped key sequence to complete
+set timeoutlen=750 " milliseconds
+
+" Switches from one match in the quickfixlist to another
+noremap <A-L> :cprevious<CR>
+noremap <A-H> :cnext<CR>
+
 " Bubbles single lines
 nnoremap <C-K> ddkP
 nnoremap <C-J> ddp
