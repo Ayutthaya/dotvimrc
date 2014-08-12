@@ -68,51 +68,56 @@ set shiftwidth=2 " sets the number of columns offset when in normal mode using t
 let mapleader = ","
 
 " <Esc> is kind of far away
-inoremap <C-X> <Esc>
+noremap <leader><leader> <Esc>
+inoremap <leader><leader> <Esc>
+cnoremap <leader><leader> <Esc>
 
 " Shortcut to edit .vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <leader>v :tabedit $MYVIMRC<CR>
 
 " Switches between buffers
-map <C-L> :bn<CR>
-map <C-H> :bp<CR>
+noremap <C-L> :bn<CR>
+noremap <C-H> :bp<CR>
 
 " Unlists the current buffer and switch to the next/previous one (reminder if
-" you want to really delete the buffer, you need to use bwipeout)
+" you want to really delete the buffer, you need to use :bwipeout)
 command! BDN :bn | :bd#
 command! BDP :bp | :bd#
-map <S-L> :BDN<CR>
-map <S-H> :BDP<CR>
+noremap <S-L> :BDN<CR>
+noremap <S-H> :BDP<CR>
 
-" Reminder : noremap avoids recursive resolution of mapping but as long as we don't remap g<C-]> it is fine here
 " Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag which jumps to the first match, whereas g<C-]> is mapped to :tjump which displays the list if multiple matches exist.
 noremap <C-]> g<C-]>
 
 " Switches from one match for a tag to another
-map <C-Down> :tnext<CR>
-map <C-Up> :tprevious<CR>
+noremap <C-Up> :tprevious<CR>
+noremap <C-Down> :tnext<CR>
 
 " Bubbles single lines
-nmap <C-K> ddkP
-nmap <C-J> ddp
+nnoremap <C-K> ddkP
+nnoremap <C-J> ddp
 
 " Bubbles multiple lines (`[ is the default mark for the last selection start point, `] for last selection end point)
-vmap <C-K> xkP`[V`] 
-vmap <C-J> xp`[V`]
+vnoremap <C-K> xkP`[V`] 
+vnoremap <C-J> xp`[V`]
 
 " Removes search highlighting
-map <leader>t :nohlsearch<CR>
+nnoremap <leader>h :nohlsearch<CR>
+
+" Shortcut for folding
+nnoremap <Space> za
 
 " PLUGINS MAPPINGS
 
 " NERDTree
-map <F4> :NERDTree <CR>
+noremap <leader>t :NERDTreeToggle<CR>
+noremap <leader>tt :NERDTreeClose<CR>
 
 " Targets the current opened buffer in NERDTree
-map <leader>n :NERDTreeFind <CR>
+noremap <leader>f :NERDTreeFind <CR>
 
 " Shortcuts to show GundoToggle
-nnoremap <F5> :GundoToggle<CR>
+noremap <leader>u :GundoToggle<CR>
 
 " ----- ARJUN STUFF, to clean
 
