@@ -22,3 +22,6 @@
 [submodule "bundle/Latex"]
 	path = bundle/Latex
 	url = http://git.code.sf.net/p/vim-latex/vim-latex
+[submodule "bundle/VisualStarSearch"]
+	path = bundle/VisualStarSearch
+	url = https://github.com/nelstrom/vim-visual-star-search.git
