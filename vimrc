@@ -56,6 +56,8 @@ if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
+" Sets foldcolumn to see foldlevels
+set foldcolumn=3
 
 " Tabs and spaces
 set expandtab " converts tab in a number of spaces
@@ -64,6 +66,7 @@ set softtabstop=2 " sets the number of columns offset when PRESSING the tab key 
 set shiftwidth=2 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
 " GENERAL MAPPINGS
+" Reminder : noremap avoids recursive resolution of mapping but as long as we don't remap g<C-]> it is fine here
 
 let mapleader = ","
 
@@ -129,30 +132,8 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
- " -------------------------------------------------------- Source display
-" Unix files
- set fileformat=unix
- " do not allow actual rendering of html tags content
- let html_no_rendering=1
- " backspace control
- set bs=indent,eol,start
 
- " ----------------------------------------------- status line
- " also see colorscheme in tgo.vim
- " status line looks like
- " filename modified readonly type buffernum,modified line,column
- " percentinfile hexofcharundercursor
- set statusline=%-5t%-1m%r%y%=[%n%M]\ %l,%c\ %p%%\ 0x%B
- set laststatus=2
-
-
- " ----------------------------------------------- default folding behaviour
- if (v:version >= 600)
- " we want simple block folding by indent
- set foldmethod=indent
- set foldlevel=1
- endif
-
+ " ARJUN'S STUFF ---------------------------------------------- BEGIN
 
  " ------------------------------------------------------- Programming
  " for correct ctags and cscope handling (alternative is required
@@ -174,32 +155,14 @@ let g:tex_flavor='latex'
  set csverb
  endif
  endif
- " ------------------------------------------------------- Scripts
- "source ~tgo/personnel/vim/matchit.vim
- let g:calendar_weeknm = 1 " WK01
 
- " ------------------------------------------------------ Key Maps
- map <F3> n
- map <S-F3> [I
-
- " ,e/,w to open/save a file in the same directory as the currently edited
- if has("unix")
- map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
- map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
- map ,r :r <C-R>=expand("%:p:h") . "/" <CR>
- " ,f creates a filesystem tree starting at the current directory
- map ,f :exe CreateMenuPath(expand("%:p:h"),"Tgo&Path") <CR>
- else
- map ,e :e <C-R>=expand("%:p:h") . "\\"<CR>
- map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
- map ,r :r <C-R>=expand("%:p:h") . "/" <CR>
+ " we want simple block folding by indent
+ if (v:version >= 600)
+ set foldmethod=indent
+ set foldlevel=1
  endif
- " use CTRL-UP & CTRL-DOWN & CTRL-= to manage folds
- map <C-UP> zc
- map <C-DOWN> zO
- map <C-PAGEUP> :Df 0<CR>
- map <C-S-PAGEUP> :Df 1<CR>
- map <C-PAGEDOWN> zR
+
+  " ARJUN'S STUFF ---------------------------------------------- END
 
 " From Vimcasts.org 
 
