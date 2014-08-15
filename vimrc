@@ -39,9 +39,11 @@ set textwidth=80
 set linebreak " doesn't work if the list option is on! set nolist
 
 " Searching parameters
-set smartcase
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase " ignores case if no pattern with uppercase found, takes it into account otherwise
+set nowrapscan " doesn't get back to first match when the last match is found
 
 " Shows matching parenthesis
 set showmatch
@@ -70,10 +72,22 @@ set shiftwidth=2 " sets the number of columns offset when in normal mode using t
 
 let mapleader = ","
 
+" little hack to make the Alt key work on vim for some keys
+set <A-L>=l 
+set <A-K>=k
+set <A-J>=j
+set <A-H>=h
+" The time in milliseconds that is waited for a key code or mapped key sequence to complete
+set timeoutlen=700 " milliseconds
+
 " <Esc> is kind of far away
 noremap <leader><leader> <Esc>
 inoremap <leader><leader> <Esc>
 cnoremap <leader><leader> <Esc>
+
+" Lets you navigate inside a wrapped line
+noremap <Up> gk
+noremap <Down> gj
 
 " Shortcut to edit .vimrc
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
@@ -86,27 +100,20 @@ noremap <C-H> :bp<CR>
 " you want to really delete the buffer, you need to use :bwipeout)
 command! BDN :bn | :bd#
 command! BDP :bp | :bd#
-noremap <S-L> :BDN<CR>
-noremap <S-H> :BDP<CR>
+noremap <A-L> :BDN<CR>
+noremap <A-H> :BDP<CR>
 
-" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag which jumps to the first match, whereas g<C-]> is mapped to :tjump which displays the list if multiple matches exist.
+" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag <current_word> which jumps to the first match, whereas g<C-]> is mapped to :tjump <current_word> which displays the list if multiple matches exist.
 noremap <C-]> g<C-]>
 
 " Switches from one match for a tag to another
 noremap <C-Up> :tprevious<CR>
 noremap <C-Down> :tnext<CR>
 
-" little hack to make the Alt key work on vim for some keys
-set <A-L>=l 
-set <A-K>=k
-set <A-J>=j
-set <A-H>=h
-" The time in milliseconds that is waited for a key code or mapped key sequence to complete
-set timeoutlen=750 " milliseconds
 
 " Switches from one match in the quickfixlist to another
-noremap <A-L> :cprevious<CR>
-noremap <A-H> :cnext<CR>
+noremap <S-L> :cprevious<CR>
+noremap <S-H> :cnext<CR>
 
 " Bubbles single lines
 nnoremap <C-K> ddkP
