@@ -85,9 +85,10 @@ noremap <leader><leader> <Esc>
 inoremap <leader><leader> <Esc>
 cnoremap <leader><leader> <Esc>
 
-" Lets you navigate inside a wrapped line
-noremap <Up> gk
-noremap <Down> gj
+" Lets you navigate inside a wrapped line using normal command instead of just
+" mapping direclty allows you to prepend a count to the whole command
+noremap <Up> :normal gk<CR>
+noremap <Down> :normal gj<CR>
 
 " Shortcut to edit .vimrc
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
