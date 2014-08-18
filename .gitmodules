@@ -25,3 +25,9 @@
 [submodule "bundle/VisualStarSearch"]
 	path = bundle/VisualStarSearch
 	url = https://github.com/nelstrom/vim-visual-star-search.git
+[submodule "vim-exchange"]
+	path = vim-exchange
+	url = https://github.com/tommcdo/vim-exchange.git
+[submodule "bundle/Exchange"]
+	path = bundle/Exchange
+	url = https://github.com/tommcdo/vim-exchange.git
