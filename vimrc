@@ -11,6 +11,9 @@ else
     syntax on " With this command Vim will overrule your settings.
 endif
 
+"This gives the <EOL> of the current buffer, which is used for reading/writing the buffer from/to a file (unix <NL>)
+set fileformat=unix
+
 " Hides buffer automatically when switching to another buffer
 set hidden 
 
@@ -68,7 +71,7 @@ set softtabstop=2 " sets the number of columns offset when PRESSING the tab key 
 set shiftwidth=2 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
 " GENERAL MAPPINGS
-" Reminder : noremap avoids recursive resolution of mapping but as long as we don't remap g<C-]> it is fine here
+" Reminder : noremap avoids recursive resolution of mapping, always use noremap!
 
 let mapleader = ","
 
@@ -151,6 +154,20 @@ set grepprg=grep\ -nH\ $*
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+" This Latex plugin defines mapping for <C-J> which is very annoying. The script
+" includes a check hasmapto before defining those mapping so we will define some
+" unused mapping here.
+" Other approach go to the script place where those mappings are defined (use
+" :map to get a list of the mappings, vimgrep /<mapping>/ bundle/Latex/**) and
+" :cnext until you get on the script and add map <unique> ... this lets vim
+" perfrom an additional check that this mapping has not already been defined
+" before and throws an error otherwise.
+" Anyway I believe this approach is cleaner, eventhough the Latex plugin should
+" be loaded only for tex files. However this unfortunate mapping still need to
+" be taken care of.
+" made them complicated on purpose
+  map <C-space>\, <Plug>IMAP_JumpForward
+  imap <C-space>\, <Plug>IMAP_JumpForward
 
 
  " ARJUN'S STUFF ---------------------------------------------- BEGIN
