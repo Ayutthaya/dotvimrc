@@ -11,6 +11,8 @@ else
     syntax on " With this command Vim will overrule your settings.
 endif
 
+"This gives the <EOL> of the current buffer, which is used for reading/writing the buffer from/to a file (unix <NL>)
+set fileformat=unix
 " Hides buffer automatically when switching to another buffer
 set hidden 
 
@@ -39,9 +41,11 @@ set textwidth=80
 set linebreak " doesn't work if the list option is on! set nolist
 
 " Searching parameters
-set smartcase
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase " ignores case if no pattern with uppercase found, takes it into account otherwise
+set nowrapscan " doesn't get back to first match when the last match is found
 
 " Shows matching parenthesis
 set showmatch
@@ -56,6 +60,8 @@ if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
+" Sets foldcolumn to see foldlevels
+set foldcolumn=3
 
 " Tabs and spaces
 set expandtab " converts tab in a number of spaces
@@ -64,79 +70,106 @@ set softtabstop=2 " sets the number of columns offset when PRESSING the tab key 
 set shiftwidth=2 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
 " GENERAL MAPPINGS
+" Reminder : noremap avoids recursive resolution of mapping, always use noremap!
 
 let mapleader = ","
 
+" little hack to make the Alt key work on vim for some keys
+set <A-L>=l 
+set <A-K>=k
+set <A-J>=j
+set <A-H>=h
+" The time in milliseconds that is waited for a key code or mapped key sequence to complete
+set timeoutlen=700 " milliseconds
+
+" <Esc> is kind of far away
+noremap <leader><leader> <Esc>
+inoremap <leader><leader> <Esc>
+cnoremap <leader><leader> <Esc>
+
+" Lets you navigate inside a wrapped line using normal command instead of just
+" mapping direclty allows you to prepend a count to the whole command
+noremap <Up> :normal gk<CR>
+noremap <Down> :normal gj<CR>
+
 " Shortcut to edit .vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <leader>v :tabedit $MYVIMRC<CR>
 
 " Switches between buffers
-map <C-L> :bn<CR>
-map <C-H> :bp<CR>
+noremap <C-L> :bn<CR>
+noremap <C-H> :bp<CR>
 
 " Unlists the current buffer and switch to the next/previous one (reminder if
-" you want to really delete the buffer, you need to use bwipeout)
+" you want to really delete the buffer, you need to use :bwipeout)
 command! BDN :bn | :bd#
 command! BDP :bp | :bd#
-map <S-L> :BDN<CR>
-map <S-H> :BDP<CR>
+noremap <A-L> :BDN<CR>
+noremap <A-H> :BDP<CR>
 
-" Reminder : noremap avoids recursive resolution of mapping but as long as we don't remap g<C-]> it is fine here
-" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag which jumps to the first match, whereas g<C-]> is mapped to :tjump which displays the list if multiple matches exist.
+" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag <current_word> which jumps to the first match, whereas g<C-]> is mapped to :tjump <current_word> which displays the list if multiple matches exist.
 noremap <C-]> g<C-]>
 
 " Switches from one match for a tag to another
-map <C-Down> :tnext<CR>
-map <C-Up> :tprevious<CR>
+noremap <C-Up> :tprevious<CR>
+noremap <C-Down> :tnext<CR>
+
+
+" Switches from one match in the quickfixlist to another
+noremap <S-L> :cprevious<CR>
+noremap <S-H> :cnext<CR>
 
 " Bubbles single lines
-nmap <C-K> ddkP
-nmap <C-J> ddp
+nnoremap <C-K> ddkP
+nnoremap <C-J> ddp
 
 " Bubbles multiple lines (`[ is the default mark for the last selection start point, `] for last selection end point)
-vmap <C-K> xkP`[V`] 
-vmap <C-J> xp`[V`]
+vnoremap <C-K> xkP`[V`] 
+vnoremap <C-J> xp`[V`]
 
 " Removes search highlighting
-map <leader>t :nohlsearch<CR>
+nnoremap <leader>h :nohlsearch<CR>
+
+" Shortcut for folding
+nnoremap <Space> za
 
 " PLUGINS MAPPINGS
 
 " NERDTree
-map <F4> :NERDTree <CR>
+noremap <leader>t :NERDTreeToggle<CR>
+noremap <leader>tt :NERDTreeClose<CR>
 
 " Targets the current opened buffer in NERDTree
-map <leader>n :NERDTreeFind <CR>
+noremap <leader>f :NERDTreeFind <CR>
 
 " Shortcuts to show GundoToggle
-nnoremap <F5> :GundoToggle<CR>
+noremap <leader>u :GundoToggle<CR>
 
-" ----- ARJUN STUFF, to clean
+" For Latex
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+" This Latex plugin defines mapping for <C-J> which is very annoying. The script
+" includes a check hasmapto before defining those mapping so we will define some
+" unused mapping here.
+" Other approach go to the script place where those mappings are defined (use
+" :map to get a list of the mappings, vimgrep /<mapping>/ bundle/Latex/**) and
+" :cnext until you get on the script and add map <unique> ... this lets vim
+" perfrom an additional check that this mapping has not already been defined
+" before and throws an error otherwise.
+" Anyway I believe this approach is cleaner, eventhough the Latex plugin should
+" be loaded only for tex files. However this unfortunate mapping still need to
+" be taken care of.
+" made them complicated on purpose
+  map <C-space>\, <Plug>IMAP_JumpForward
+  imap <C-space>\, <Plug>IMAP_JumpForward
 
- " -------------------------------------------------------- Source display
-" Unix files
- set fileformat=unix
- " do not allow actual rendering of html tags content
- let html_no_rendering=1
- " backspace control
- set bs=indent,eol,start
 
- " ----------------------------------------------- status line
- " also see colorscheme in tgo.vim
- " status line looks like
- " filename modified readonly type buffernum,modified line,column
- " percentinfile hexofcharundercursor
- set statusline=%-5t%-1m%r%y%=[%n%M]\ %l,%c\ %p%%\ 0x%B
- set laststatus=2
-
-
- " ----------------------------------------------- default folding behaviour
- if (v:version >= 600)
- " we want simple block folding by indent
- set foldmethod=indent
- set foldlevel=1
- endif
-
+ " ARJUN'S STUFF ---------------------------------------------- BEGIN
 
  " ------------------------------------------------------- Programming
  " for correct ctags and cscope handling (alternative is required
@@ -158,32 +191,14 @@ nnoremap <F5> :GundoToggle<CR>
  set csverb
  endif
  endif
- " ------------------------------------------------------- Scripts
- "source ~tgo/personnel/vim/matchit.vim
- let g:calendar_weeknm = 1 " WK01
 
- " ------------------------------------------------------ Key Maps
- map <F3> n
- map <S-F3> [I
-
- " ,e/,w to open/save a file in the same directory as the currently edited
- if has("unix")
- map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
- map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
- map ,r :r <C-R>=expand("%:p:h") . "/" <CR>
- " ,f creates a filesystem tree starting at the current directory
- map ,f :exe CreateMenuPath(expand("%:p:h"),"Tgo&Path") <CR>
- else
- map ,e :e <C-R>=expand("%:p:h") . "\\"<CR>
- map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
- map ,r :r <C-R>=expand("%:p:h") . "/" <CR>
+ " we want simple block folding by indent
+ if (v:version >= 600)
+ set foldmethod=indent
+ set foldlevel=1
  endif
- " use CTRL-UP & CTRL-DOWN & CTRL-= to manage folds
- map <C-UP> zc
- map <C-DOWN> zO
- map <C-PAGEUP> :Df 0<CR>
- map <C-S-PAGEUP> :Df 1<CR>
- map <C-PAGEDOWN> zR
+
+  " ARJUN'S STUFF ---------------------------------------------- END
 
 " From Vimcasts.org 
 
