@@ -69,6 +69,27 @@ set tabstop=2 " sets tab character to correspond to x columns. When there is an 
 set softtabstop=2 " sets the number of columns offset when PRESSING the tab key or the backspace key. It doesn't necessarily inserts or remove a tab character, just the proper number of columns.
 set shiftwidth=2 " sets the number of columns offset when in normal mode using the shift keys '>' and '<'
 
+" Number of screen lines to use for the command-line. Helps avoiding hit-enter prompts.
+set cmdheight=2
+
+" PLUGINS SETTINGS
+
+" Fugitive
+" From vimcast #34
+autocmd BufReadPost fugitive://* set bufhidden=delete
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+" Latex
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+
 " GENERAL MAPPINGS
 " Reminder : noremap avoids recursive resolution of mapping, always use noremap!
 
@@ -115,8 +136,8 @@ noremap <C-Down> :tnext<CR>
 
 
 " Switches from one match in the quickfixlist to another
-noremap <S-L> :cprevious<CR>
-noremap <S-H> :cnext<CR>
+noremap <silent> <S-L> :cprevious<CR>
+noremap <silent> <S-H> :cnext<CR>
 
 " Bubbles single lines
 nnoremap <C-K> ddkP
@@ -144,15 +165,7 @@ noremap <leader>f :NERDTreeFind <CR>
 " Shortcuts to show GundoToggle
 noremap <leader>u :GundoToggle<CR>
 
-" For Latex
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
+" Latex
 " This Latex plugin defines mapping for <C-J> which is very annoying. The script
 " includes a check hasmapto before defining those mapping so we will define some
 " unused mapping here.
