@@ -14,5 +14,5 @@ endif
 " this 'awesome' redirection is to swap stdin and stderr for the make output
 set shellpipe=3>&1\ 1>&2\ 2>&3\ 3>&-\|\ tee
 
-CompilerSet makeprg=gradle\ clean\ build\ \-x\ test\ ksvagrant
+CompilerSet makeprg=gradle\ clean\ build\ \-x\ test\ 
 CompilerSet errorformat=%f:%l:\ %m
