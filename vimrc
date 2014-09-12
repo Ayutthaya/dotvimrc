@@ -153,6 +153,29 @@ nnoremap <leader>h :nohlsearch<CR>
 " Shortcut for folding
 nnoremap <Space> za
 
+" Commenting / Uncommenting
+noremap <leader>c :call Comment()<CR>
+noremap <leader>cc :call Uncomment()<CR>
+
+" Comments range (handles multiple file types)
+function! Comment() range
+  " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
+  " characters
+  let roughCommentString = &commentstring
+  let commentStringLen = strlen(roughCommentString)
+  let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
+  execute ":" . a:firstline . "," . a:lastline . 's,^,' . commentString . ','
+endfunction
+
+" Uncomments range (handles multiple file types)
+function! Uncomment() range
+  " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
+  " characters
+  let roughCommentString = &commentstring
+  let commentStringLen = strlen(roughCommentString)
+  let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
+    execute ":" . a:firstline . "," . a:lastline . 's,^' . commentString . ',,'
+endfunction
 " PLUGINS MAPPINGS
 
 " NERDTree
