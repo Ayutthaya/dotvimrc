@@ -176,6 +176,10 @@ function! Uncomment() range
   let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
     execute ":" . a:firstline . "," . a:lastline . 's,^' . commentString . ',,'
 endfunction
+
+" Greps the current word in the arglist (detailed explanation on this command at : http://learnvimscriptthehardway.stevelosh.com/chapters/32.html
+nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ##"<CR>:copen<CR>:redraw!<CR>
+
 " PLUGINS MAPPINGS
 
 " NERDTree
