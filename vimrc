@@ -180,6 +180,9 @@ endfunction
 " Greps the current word in the arglist (detailed explanation on this command at : http://learnvimscriptthehardway.stevelosh.com/chapters/32.html
 nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ##"<CR>:copen<CR>:redraw!<CR>
 
+" Redraws the screen
+nnoremap <leader>d :redraw!<CR>
+
 " PLUGINS MAPPINGS
 
 " NERDTree
