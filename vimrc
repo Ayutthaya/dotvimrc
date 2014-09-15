@@ -89,6 +89,10 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-B>"
+let g:UltiSnipsJumpBackwardTrigger="<C-Z>"
 
 " GENERAL MAPPINGS
 " Reminder : noremap avoids recursive resolution of mapping, always use noremap!
