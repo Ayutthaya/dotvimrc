@@ -31,3 +31,12 @@
 [submodule "bundle/Ultisnips"]
 	path = bundle/Ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "bundle/NERDCommenter"]
+	path = bundle/NERDCommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/Surround"]
+	path = bundle/Surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/Syntastic"]
+	path = bundle/Syntastic
+	url = https://github.com/scrooloose/syntastic.git
