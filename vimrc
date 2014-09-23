@@ -53,7 +53,6 @@ set showmatch
 " Indentation
 set autoindent
 set smartindent
-set shiftwidth=2
 
 " Sources the vimrc file after saving it
 if has("autocmd")
@@ -72,11 +71,15 @@ set shiftwidth=2 " sets the number of columns offset when in normal mode using t
 " Number of screen lines to use for the command-line. Helps avoiding hit-enter prompts.
 set cmdheight=2
 
- " Sets the default foldmethod to indent
- if (v:version >= 600)
-   set foldmethod=indent
-   set foldlevel=1
- endif
+" Sets the default foldmethod to indent
+if (v:version >= 600)
+  set foldmethod=indent
+  set foldlevel=1
+endif
+ 
+" Sets omni completion
+" set omnifunc=syntaxcomplete#Complete " completes keywords defined in filetype
+" set completeopt=menu " uses a popup menu to show the possible completions
 
 " PLUGINS SETTINGS
 
@@ -99,11 +102,12 @@ let g:tex_flavor='latex'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-B>"
 let g:UltiSnipsJumpBackwardTrigger="<C-Z>"
+let g:UltiSnipsEditSplit="vertical"
 
 " CtrlP
 let g:ctrlp_user_command=
     \ 'find %s -type f | grep -vi "\.\(xml\|txt\|sw.\|class\|csv\|rtf\|dat\)$"'
-" explanation: by default CrtlP uses vim tool to list all files in a directory
+" explanation: by default CrtlP uses vim builtin tool to list all files in a directory
 " (globpath) but you can change that, for example : cat cscope, etc. Here I want
 " to exclude some files (xml and stuff, by this should definitely specific to
 " each project, need to find a cleaner way
