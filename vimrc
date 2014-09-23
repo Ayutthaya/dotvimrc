@@ -53,7 +53,6 @@ set showmatch
 " Indentation
 set autoindent
 set smartindent
-set shiftwidth=2
 
 " Sources the vimrc file after saving it
 if has("autocmd")
@@ -72,6 +71,16 @@ set shiftwidth=2 " sets the number of columns offset when in normal mode using t
 " Number of screen lines to use for the command-line. Helps avoiding hit-enter prompts.
 set cmdheight=2
 
+" Sets the default foldmethod to indent
+if (v:version >= 600)
+  set foldmethod=indent
+  set foldlevel=1
+endif
+ 
+" Sets omni completion
+" set omnifunc=syntaxcomplete#Complete " completes keywords defined in filetype
+" set completeopt=menu " uses a popup menu to show the possible completions
+
 " PLUGINS SETTINGS
 
 " Fugitive
@@ -89,6 +98,19 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-B>"
+let g:UltiSnipsJumpBackwardTrigger="<C-Z>"
+let g:UltiSnipsEditSplit="vertical"
+
+" CtrlP
+let g:ctrlp_user_command=
+    \ 'find %s -type f | grep -vi "\.\(xml\|txt\|sw.\|class\|csv\|rtf\|dat\)$"'
+" explanation: by default CrtlP uses vim builtin tool to list all files in a directory
+" (globpath) but you can change that, for example : cat cscope, etc. Here I want
+" to exclude some files (xml and stuff, by this should definitely specific to
+" each project, need to find a cleaner way
 
 " GENERAL MAPPINGS
 " Reminder : noremap avoids recursive resolution of mapping, always use noremap!
@@ -100,6 +122,10 @@ set <A-L>=l
 set <A-K>=k
 set <A-J>=j
 set <A-H>=h
+" explanation : when pressing Alt+L for example, the terminal reads this signal
+" as Esc+l, so setting <A-L> to ^[l lets us refer in the rest of the script to
+" ^[l using <A-L>
+
 " The time in milliseconds that is waited for a key code or mapped key sequence to complete
 set timeoutlen=700 " milliseconds
 
@@ -164,7 +190,7 @@ function! Comment() range
   let roughCommentString = &commentstring
   let commentStringLen = strlen(roughCommentString)
   let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
-  execute ":" . a:firstline . "," . a:lastline . 's,^,' . commentString . ','
+  execute ":" . a:firstline . "," . a:lastline . 's,^,' . commentString . ' ,'
 endfunction
 
 " Uncomments range (handles multiple file types)
@@ -235,11 +261,6 @@ noremap <leader>u :GundoToggle<CR>
  endif
  endif
 
- " we want simple block folding by indent
- if (v:version >= 600)
- set foldmethod=indent
- set foldlevel=1
- endif
 
   " ARJUN'S STUFF ---------------------------------------------- END
 
@@ -263,4 +284,3 @@ set listchars=tab:▸\ ,eol:¬
 " #4 Tidying whitespaces
 
 " To convert spaces in tab and conversely use :retab!
-" To remove trailing spaces usr :%s/\s\+$//e. \s stands for space, \+ means it should occur once or several times, the e at the end tells vim to ignore errors.
