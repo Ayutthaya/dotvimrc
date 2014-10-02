@@ -11,7 +11,7 @@ else
     syntax on " With this command Vim will overrule your settings.
 endif
 
-"This gives the <EOL> of the current buffer, which is used for reading/writing the buffer from/to a file (unix <NL>)
+" Gives the <EOL> of the current buffer, which is used for reading/writing the buffer from/to a file (unix <NL>)
 set fileformat=unix
 " Hides buffer automatically when switching to another buffer
 set hidden 
@@ -31,7 +31,7 @@ end
 " Avoids 'Hit return to continue' message
 set shortmess=atT
 
-" Prevents long line to go off screen
+" Prevents long line to go off screen (use gq to force wrapping)
 set wrap
 
 " Sets limit of lines width (0 if no limit)
@@ -74,7 +74,7 @@ set cmdheight=2
 " Sets the default foldmethod to indent
 if (v:version >= 600)
   set foldmethod=indent
-  set foldlevel=1
+  set foldlevel=0
 endif
  
 " Sets omni completion
@@ -89,10 +89,6 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Latex
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
@@ -112,6 +108,9 @@ let g:ctrlp_user_command=
 " to exclude some files (xml and stuff, by this should definitely specific to
 " each project, need to find a cleaner way
 
+" Syntastic
+let g:syntastic_check_on_open = 1
+
 " GENERAL MAPPINGS
 " Reminder : noremap avoids recursive resolution of mapping, always use noremap!
 
@@ -129,7 +128,7 @@ set <A-H>=h
 " The time in milliseconds that is waited for a key code or mapped key sequence to complete
 set timeoutlen=700 " milliseconds
 
-" <Esc> is kind of far away
+" <Esc> is too far away for my little pinkie!
 noremap <leader><leader> <Esc>
 inoremap <leader><leader> <Esc>
 cnoremap <leader><leader> <Esc>
@@ -153,7 +152,10 @@ command! BDP :bp | :bd#
 noremap <A-L> :BDN<CR>
 noremap <A-H> :BDP<CR>
 
-" Displays the list of multiple match for a tag by default. (Initially <C-]> is mapped to :tag <current_word> which jumps to the first match, whereas g<C-]> is mapped to :tjump <current_word> which displays the list if multiple matches exist.
+" Displays the list of multiple match for a tag by default. (Initially <C-]> is
+" mapped to :tag <current_word> which jumps to the first match, whereas g<C-]>
+" is mapped to :tjump <current_word> which displays the list if multiple matches
+" exist.
 noremap <C-]> g<C-]>
 
 " Switches from one match for a tag to another
@@ -169,7 +171,8 @@ noremap <silent> <S-H> :cnext<CR>
 nnoremap <C-K> ddkP
 nnoremap <C-J> ddp
 
-" Bubbles multiple lines (`[ is the default mark for the last selection start point, `] for last selection end point)
+" Bubbles multiple lines (`[ is the default mark for the last selection start
+" point, `] for last selection end point)
 vnoremap <C-K> xkP`[V`] 
 vnoremap <C-J> xp`[V`]
 
@@ -179,61 +182,54 @@ nnoremap <leader>h :nohlsearch<CR>
 " Shortcut for folding
 nnoremap <Space> za
 
-" Commenting / Uncommenting
-noremap <leader>c :call Comment()<CR>
-noremap <leader>cc :call Uncomment()<CR>
+" Stays here for teaching purposes - use NERDComment instead
+" " Commenting / Uncommenting
+" noremap <leader>c :call Comment()<CR>
+" noremap <leader>cc :call Uncomment()<CR>
+" 
+" " Comments range (handles multiple file types)
+" function! Comment() range
+"   " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
+"   " characters
+"   let roughCommentString = &commentstring
+"   let commentStringLen = strlen(roughCommentString)
+"   let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
+"   execute ":" . a:firstline . "," . a:lastline . 's,^,' . commentString . ' ,'
+" endfunction
+" 
+" " Uncomments range (handles multiple file types)
+" function! Uncomment() range
+"   " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
+"   " characters
+"   let roughCommentString = &commentstring
+"   let commentStringLen = strlen(roughCommentString)
+"   let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
+"     execute ":" . a:firstline . "," . a:lastline . 's,^' . commentString . ',,'
+" endfunction
 
-" Comments range (handles multiple file types)
-function! Comment() range
-  " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
-  " characters
-  let roughCommentString = &commentstring
-  let commentStringLen = strlen(roughCommentString)
-  let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
-  execute ":" . a:firstline . "," . a:lastline . 's,^,' . commentString . ' ,'
-endfunction
-
-" Uncomments range (handles multiple file types)
-function! Uncomment() range
-  " Typically (at least this is the case for Scala and Java) the commentstring is set to //%s, so we remove the last 2
-  " characters
-  let roughCommentString = &commentstring
-  let commentStringLen = strlen(roughCommentString)
-  let commentString = strpart(roughCommentString, 0, commentStringLen - 2)
-    execute ":" . a:firstline . "," . a:lastline . 's,^' . commentString . ',,'
-endfunction
-
-" Greps the current word in the arglist (detailed explanation on this command at : http://learnvimscriptthehardway.stevelosh.com/chapters/32.html
+" Greps the current word in the arglist (detailed explanation on this command at
+" http://learnvimscriptthehardway.stevelosh.com/chapters/32.html
 nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ##"<CR>:copen<CR>:redraw!<CR>
 
 " PLUGINS MAPPINGS
 
-" NERDTree
+" --- NERDTree ---
+
+" Shortcuts to show NerdTreeToggle
 noremap <leader>t :NERDTreeToggle<CR>
-noremap <leader>tt :NERDTreeClose<CR>
 
 " Targets the current opened buffer in NERDTree
 noremap <leader>f :NERDTreeFind <CR>
 
+" --- Gundo ---
+
 " Shortcuts to show GundoToggle
 noremap <leader>u :GundoToggle<CR>
 
-" Latex
-" This Latex plugin defines mapping for <C-J> which is very annoying. The script
-" includes a check hasmapto before defining those mapping so we will define some
-" unused mapping here.
-" Other approach go to the script place where those mappings are defined (use
-" :map to get a list of the mappings, vimgrep /<mapping>/ bundle/Latex/**) and
-" :cnext until you get on the script and add map <unique> ... this lets vim
-" perfrom an additional check that this mapping has not already been defined
-" before and throws an error otherwise.
-" Anyway I believe this approach is cleaner, eventhough the Latex plugin should
-" be loaded only for tex files. However this unfortunate mapping still need to
-" be taken care of.
-" made them complicated on purpose
-  map <C-space>\, <Plug>IMAP_JumpForward
-  imap <C-space>\, <Plug>IMAP_JumpForward
+" --- Tagbar ---
 
+" Shortcuts to show TagbarToggle
+nnoremap <silent> <leader>b :TagbarToggle<CR>
 
  " ARJUN'S STUFF ---------------------------------------------- BEGIN
 
@@ -257,7 +253,6 @@ noremap <leader>u :GundoToggle<CR>
  set csverb
  endif
  endif
-
 
   " ARJUN'S STUFF ---------------------------------------------- END
 
