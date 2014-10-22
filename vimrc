@@ -89,6 +89,18 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Latex
+" This Latex plugin defines mapping for <C-J> for IMAP_JumpForward which is very
+" annoying.  The script includes a check hasmapto before defining those mapping
+" so we will define some mapping here (made them complicated on purpose)
+map <C-space>\, <Plug>IMAP_JumpForward 
+imap <C-space>\, <Plug>IMAP_JumpForward
+
+" Other approach : go to the place where those mappings are defined in script (use
+" :map to get a list of the mappings, vimgrep /<mapping>/ bundle/Latex/**) 
+" and add map <unique> ... this lets vim
+" perfrom an additional check that this mapping has not already been defined
+" before and throws an error otherwise.
+" Anyway I believe the first approach is cleaner.
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
