@@ -81,6 +81,17 @@ endif
 " set omnifunc=syntaxcomplete#Complete " completes keywords defined in filetype
 " set completeopt=menu " uses a popup menu to show the possible completions
 
+" From vimcast#45 populates the arglist with the quickfixlist buffers
+" (useful for project wide renaming)
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
 " PLUGINS SETTINGS
 
 " Fugitive
@@ -114,7 +125,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 " CtrlP
 let g:ctrlp_user_command=
-    \ 'find %s -type f | grep -vi "\.\(xml\|txt\|sw.\|class\|csv\|rtf\|dat\)$"'
+    \ 'find %s -type f | grep -i "\.\(java\|scala\|c\|cpp\|hs\|js\|css\|html\)$"'
 " explanation: by default CrtlP uses vim builtin tool to list all files in a directory
 " (globpath) but you can change that, for example : cat cscope, etc. Here I want
 " to exclude some files (xml and stuff, by this should definitely specific to
