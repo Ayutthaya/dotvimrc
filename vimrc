@@ -1,4 +1,6 @@
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" Loads all plugins with pathogen and make documentation available
+call pathogen#infect()
+call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
 
 " From vimcasts #1
 " Shortcut to rapidly toggle `set list`
@@ -34,6 +36,7 @@ if has("autocmd")
 endif
 
 " From vimcasts #8
+" Path from the current file
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 let mapleader=','
 map <leader>ew :e %%
@@ -54,3 +57,6 @@ vmap <C-Down> ]egv
 " From vimcasts #26
 " Visually select the text that was last edited/pasted (with unimpaired plugin)
 nmap gV `[v`]
+
+" Gundo plugin
+noremap <F5> :GundoToggle<CR>
