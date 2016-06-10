@@ -1,3 +1,7 @@
+" Loads all plugins with pathogen and make documentation available
+call pathogen#infect()
+call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
+
 " Disabling auto-commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -18,9 +22,8 @@ set showmatch
 set autoindent
 set smartindent
 
-" Loads all plugins with pathogen and make documentation available
-call pathogen#infect()
-call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
+" Mapleader
+let mapleader=','
 
 " From vimcasts #1
 " Shortcut to rapidly toggle `set list`
@@ -58,7 +61,6 @@ endif
 " From vimcasts #8
 " Path from the current file
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-let mapleader=','
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
@@ -90,3 +92,8 @@ noremap <F5> :GundoToggle<CR>
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
+" Shortcuts to show TagbarToggle
+nnoremap <silent> <leader>b :TagbarToggle<CR>
+
+" YMC plugin fallback to global ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
