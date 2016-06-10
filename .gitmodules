@@ -28,9 +28,6 @@
 [submodule "bundle/Surround"]
 	path = bundle/Surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/Syntastic"]
-	path = bundle/Syntastic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule "bundle/Unimpaired"]
 	path = bundle/Unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
