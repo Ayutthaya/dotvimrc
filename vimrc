@@ -1,3 +1,23 @@
+" Disabling auto-commenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Indent correctly on new line
+imap <C-Return> <CR><CR><C-o>k<Tab>
+
+" Searching parameters
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase " ignores case if no pattern with uppercase found, takes it into account otherwise
+set nowrapscan " doesn't get back to first match when the last match is found
+
+" Shows matching parenthesis
+set showmatch
+
+" Indentation
+set autoindent
+set smartindent
+
 " Loads all plugins with pathogen and make documentation available
 call pathogen#infect()
 call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
@@ -60,3 +80,13 @@ nmap gV `[v`]
 
 " Gundo plugin
 noremap <F5> :GundoToggle<CR>
+
+" Syntastic recommended settings
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+

@@ -37,3 +37,6 @@
 [submodule "bundle/Exchange"]
 	path = bundle/Exchange
 	url = git://github.com/tommcdo/vim-exchange.git
+[submodule "bundle/Tagbar"]
+	path = bundle/Tagbar
+	url = https://github.com/majutsushi/tagbar.git
