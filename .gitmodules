@@ -33,10 +33,10 @@
 	url = https://github.com/scrooloose/syntastic.git
 [submodule "bundle/Unimpaired"]
 	path = bundle/Unimpaired
-	url = git://github.com/tpope/vim-unimpaired.git
+	url = https://github.com/tpope/vim-unimpaired.git
 [submodule "bundle/Exchange"]
 	path = bundle/Exchange
-	url = git://github.com/tommcdo/vim-exchange.git
+	url = https://github.com/tommcdo/vim-exchange.git
 [submodule "bundle/Tagbar"]
 	path = bundle/Tagbar
 	url = https://github.com/majutsushi/tagbar.git
