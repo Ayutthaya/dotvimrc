@@ -107,6 +107,5 @@ endif
 
 
 " timeouts
-set timeout
-set ttimeoutlen=10
-set timeoutlen=500
+set notimeout
+set ttimeout
