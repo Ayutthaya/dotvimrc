@@ -1,3 +1,15 @@
+" colorscheme
+colorscheme koehler
+
+" line numbers
+set nu
+
+" line numbers in grey 
+highlight LineNr ctermfg=grey
+
+" set leader
+let mapleader=','
+
 " Disabling auto-commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -16,7 +28,9 @@ set showmatch
 
 " Indentation
 set autoindent
-set smartindent
+" set smartindent
+set nosmartindent
+filetype indent on
 
 " Loads all plugins with pathogen and make documentation available
 call pathogen#infect()
@@ -58,7 +72,6 @@ endif
 " From vimcasts #8
 " Path from the current file
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-let mapleader=','
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
@@ -81,12 +94,19 @@ nmap gV `[v`]
 " Gundo plugin
 noremap <F5> :GundoToggle<CR>
 
-" Syntastic recommended settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+" Shortcuts to show TagbarToggle
+nnoremap <silent> <leader>b :TagbarToggle<CR>
 
+if &term =~ '^screen'
+  " tmux will send xterm-style keys when its xterm-keys option is on
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
+endif
+
+
+" timeouts
+set timeout
+set ttimeoutlen=10
+set timeoutlen=500
