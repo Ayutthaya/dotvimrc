@@ -105,7 +105,11 @@ if &term =~ '^screen'
   execute "set <xLeft>=\e[1;*D"
 endif
 
-
 " timeouts
 set notimeout
 set ttimeout
+
+" quickfix navigation
+nnoremap <Leader>+      :cnext<CR> :norm! zz<CR>
+nnoremap <Leader>-      :cprev<CR> :norm! zz<CR>
+nnoremap <Leader>*      :cc<CR> :norm! zz<CR>
