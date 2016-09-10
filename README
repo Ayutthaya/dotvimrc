@@ -1,7 +1,7 @@
 Installation :
 
 1. Clone this git repository
-  git clone https://github.com/paulroseau/dotvimrc.git ~/.vim
+  git clone https://github.com/ayutthaya/dotvimrc.git ~/.vim
 
 2. Run the tiny install script which creates a symlink from your .vimrc to the vimrc cloned, and update all the submodules
   sudo chmod +x ~/.vim/install_vim_config.sh
