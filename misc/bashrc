@@ -28,6 +28,8 @@ alias gp='cd ${PWD%%-git*}-p4'
 alias tmuxa='tmux -2 att -d -t'
 alias tmuxps='for s in $(tmux list-sessions -F "#{session_name}") ; do for p in $(tmux list-panes -s -F "#{window_name} #{window_index}.#{pane_index} [#{pane_pid}]" -t "$s" | sed "s@ @_@g") ; do export w=$(echo $p | sed "s@\(.*\)_\[.*@\1@; s@_@ @") ; export b=$(echo $p | sed "s@.*\[\(.*\)\]@\1@g") ; pstree -ap -U -p $b | grep -v ",${b}$" | sed "s@^@$s:\t$w:\t@" ; done ; done'
 alias tmuxn='tmux -2 new -s'
+alias tmuxv='tmux split-window -v'
+alias tmuxh='tmux split-window -h'
 
 #-------------------------------------------------------------
 # Some settings
