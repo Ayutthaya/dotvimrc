@@ -1,11 +1,22 @@
-" colorscheme
-colorscheme koehler
+" Loads all plugins with pathogen and make documentation available
+call pathogen#infect()
+call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
+
+" fix colors
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+set t_Co=256
+
+" solarized colorscheme
+syntax enable
+set background=dark
+colorscheme solarized
 
 " line numbers
-set nu
+set relativenumber
 
 " line numbers in grey 
-highlight LineNr ctermfg=grey
+"highlight LineNr ctermfg=grey
 
 " set leader
 let mapleader=','
@@ -31,10 +42,6 @@ set autoindent
 " set smartindent
 set nosmartindent
 filetype indent on
-
-" Loads all plugins with pathogen and make documentation available
-call pathogen#infect()
-call pathogen#helptags() " this is done manually by running :helptags ~/.vim/<plugin-name>/doc
 
 " From vimcasts #1
 " Shortcut to rapidly toggle `set list`
