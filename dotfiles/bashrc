@@ -4,14 +4,9 @@
 # 
 # =============================================================== #
 
-# Source conda
-export PATH=/home/nfoy/my_conda/bin:$PATH
-
-# set P4CONFIG
-export P4CONFIG=~/.perforce
-
-# User specific aliases and functions
-. /opt/sgbd-maintainer/oracle/client/sgbd-profile.sh
+#-------------------------------------------------------------
+# GitP4 
+#-------------------------------------------------------------
 
 # aliases from https://confluence.fr.cfm.fr/display/ITDEV/Git+Expermentation+and+Overview
 alias gitp4client="p4 client -o | grep -A 100 ^View | tail -n +2 | grep -v ^$ | sed -e 's@^[[:blank:]]*@@'"
@@ -23,6 +18,10 @@ alias gitp4rebaseall='for i in $(find . -name .git -type d) ; do (cd ${i}/.. && 
 alias gitp4status='for i in $(find . -name .git -type d) ; do (cd ${i}/.. && echo $(pwd) && git status) ; done'
 alias gg='cd ${PWD%%-p4*}-git'
 alias gp='cd ${PWD%%-git*}-p4'
+
+#-------------------------------------------------------------
+# Tmux 
+#-------------------------------------------------------------
 
 # aliases for tmux
 alias tmuxa='tmux -2 att -d -t'
@@ -177,7 +176,6 @@ function __exit_status() {
             export PS1_EXIT="$"
         fi
 }
-
 
 #-------------------------------------------------------------
 # Some settings
