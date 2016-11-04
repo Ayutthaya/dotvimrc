@@ -35,17 +35,11 @@ alias tmuxh='tmux split-window -h'
 # Git 
 #-------------------------------------------------------------
 
-# to get git complete functions NOW
-if [[ -r "/usr/share/bash-completion/completions/git" ]]; then
-    . /usr/share/bash-completion/completions/git
-        __git_complete g __git_main
-elif [[ -r "/home/rbeneyton/dotfiles/git/completions_git" ]]; then
-    . /home/rbeneyton/dotfiles/git/completions_git
-        __git_complete g __git_main
-fi
+# Enable completion for git
+source ~/.git-completion.bash
+
 alias g='git'
 alias gst='git status'
-alias gnw='sh "/home/rbeneyton/dotfiles/git/git-new-workdir'
 alias t='tig'
 alias gl='git logp -10'
 alias gll='git logp -25'
@@ -53,7 +47,6 @@ alias glll='git logp -50'
 alias gs='git st'
 alias ga='git add'
 alias gc='git commit'
-alias ggr='git gr'
 alias tempo='git commit -m tempo -a'
 
 #from http://www.git-attitude.fr/2010/07/14/le-prompt-bash-qui-change-la-vie-avec-git/
@@ -169,6 +162,11 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_DESCRIBE_STYLE="branch"
 export PROMPT_COMMAND=__exit_status
+
+#-------------------------------------------------------------
+# Exit status (not used)
+#-------------------------------------------------------------
+
 function __exit_status() {
     local EXIT="$?"
         if [ $EXIT != 0 ]; then
@@ -179,7 +177,7 @@ function __exit_status() {
             export PS1_EXIT="$"
         fi
 }
-PS1='[\t] \[\e[34;1m\]@\[\e[32;1m\]\H\[\033[1;31m\]$(__git_ps1)\[\033[0m\] \w \[\e[31;1m\]${PS1_EXIT_E}\[\e[0m\]\[\e[36;1m\]${PS1_EXIT}\[\e[0m\] '
+
 
 #-------------------------------------------------------------
 # Some settings
@@ -191,13 +189,15 @@ alias debug="set -o nounset; set -o xtrace"
 
 ulimit -S -c 0      # Don t want coredumps.
 set -o notify
-set -o noclobber
+# The noclobber option prevents you from overwriting existing files with the > operator.
+set -o noclobber    
+# Prevent from exiting when doing Ctrl+D
 set -o ignoreeof
 
 
 # Enable options:
-shopt -s cdspell
-shopt -s cdable_vars
+shopt -s cdspell # automatically correct typos when cd
+shopt -s cdable_vars # allow to cd in environment variable
 shopt -s checkhash
 shopt -s checkwinsize
 shopt -s sourcepath
@@ -393,26 +393,25 @@ function job_color()
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
 case ${TERM} in
-  *term | rxvt | linux)
-        PS1="\[\$(load_color)\][\A\[${NC}\] "
+  *term | rxvt | linux | screen* )
         # Time of day (with load info):
         PS1="\[\$(load_color)\][\A\[${NC}\] "
         # User@Host (with connection type info):
         PS1=${PS1}"\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\] "
         # PWD (with 'disk space' info):
-        PS1=${PS1}"\[\$(disk_color)\]\W]\[${NC}\] "
+        PS1=${PS1}"\[\$(disk_color)\]\W]\[${NC}\]"
+	# Set git status
+	PS1=${PS1}"\[\033[1;31m\]\$(__git_ps1)\[\033[0m\] "
         # Prompt (with 'job' info):
         PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
         # Set title of current xterm:
         PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
         ;;
-    *)
+  * )
         PS1="(\A \u@\h \W) > " # --> PS1="(\A \u@\h \w) > "
                                # --> Shows full pathname of current dir.
         ;;
 esac
-
-
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
@@ -1013,9 +1012,6 @@ _killall()
 
 complete -F _killall killall killps
 
-
-# Enmable completion for git
-source ~/.git-completion.bash
 
 # Local Variables:
 # mode:shell-script
