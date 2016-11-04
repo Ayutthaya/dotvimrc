@@ -14,6 +14,7 @@ colorscheme solarized
 
 " line numbers
 set relativenumber
+set nu
 
 " line numbers in grey 
 "highlight LineNr ctermfg=grey
