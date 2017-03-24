@@ -31,6 +31,12 @@ alias tmuxv='tmux split-window -v'
 alias tmuxh='tmux split-window -h'
 
 #-------------------------------------------------------------
+# Vim as main editor
+#-------------------------------------------------------------
+
+export EDITOR=vim
+
+#-------------------------------------------------------------
 # Git 
 #-------------------------------------------------------------
 
@@ -255,19 +261,20 @@ NC="\e[m"               # Color Reset
 ALERT=${BWhite}${On_Red} # Bold White on red background
 
 
+# Comment out the following for a quiet shell
 
-echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan}"
-
-date
-if [ -x /usr/games/fortune ]; then
-    /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
-fi
-
-function _exit()              # Function to run upon exit of shell.
-{
-    echo -e "${BRed}Hasta la vista, baby${NC}"
-}
-trap _exit EXIT
+# echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan}"
+#
+# date
+# if [ -x /usr/games/fortune ]; then
+#     /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
+# fi
+#
+# function _exit()              # Function to run upon exit of shell.
+# {
+#     echo -e "${BRed}Hasta la vista, baby${NC}"
+# }
+# trap _exit EXIT
 
 #-------------------------------------------------------------
 # Shell Prompt - for many examples, see:
@@ -432,6 +439,7 @@ export HOSTFILE=$HOME/.hosts    # Put a list of remote hosts in ~/.hosts
 # Personnal Aliases
 #-------------------
 
+alias rr='readlink -f'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'

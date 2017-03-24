@@ -60,6 +60,7 @@ if has("autocmd")
 
   " cpp files
   autocmd FileType cpp setlocal ts=8 sts=4 sw=4 expandtab
+  autocmd FileType c setlocal ts=8 sts=4 sw=4 expandtab
 
   " py files
   autocmd FileType python setlocal ts=8 sts=4 sw=4 expandtab
@@ -121,3 +122,7 @@ set ttimeout
 nnoremap <Leader>+      :cnext<CR> :norm! zz<CR>
 nnoremap <Leader>-      :cprev<CR> :norm! zz<CR>
 nnoremap <Leader>*      :cc<CR> :norm! zz<CR>
+
+" breakpoints for python!
+au FileType python map <silent> <leader>p oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>P Oimport pdb; pdb.set_trace()<esc>
