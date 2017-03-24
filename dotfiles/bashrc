@@ -400,7 +400,7 @@ function job_color()
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
 case ${TERM} in
-  *term | rxvt | linux | screen* )
+  *term* | rxvt | linux | screen* )
         # Time of day (with load info):
         PS1="\[\$(load_color)\][\A\[${NC}\] "
         # User@Host (with connection type info):
