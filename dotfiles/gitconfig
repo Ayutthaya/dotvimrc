@@ -1,0 +1,11 @@
+[core]
+	excludesfile=~/.gitignore
+	editor = vim
+
+[merge]
+	verbosity = 1
+	conflictstyle = diff3
+	tool = fugitive
+
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
