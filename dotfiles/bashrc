@@ -19,8 +19,6 @@ alias gitp4status='for i in $(find . -name .git -type d) ; do (cd ${i}/.. && ech
 alias gg='cd ${PWD%%-p4*}-git'
 alias gp='cd ${PWD%%-git*}-p4'
 
-export P4CONFIG=.perforce
-
 #-------------------------------------------------------------
 # Tmux 
 #-------------------------------------------------------------
