@@ -5,19 +5,10 @@
 # =============================================================== #
 
 #-------------------------------------------------------------
-# GitP4 
+# Work
 #-------------------------------------------------------------
 
-# aliases from https://confluence.fr.cfm.fr/display/ITDEV/Git+Expermentation+and+Overview
-alias gitp4client="p4 client -o | grep -A 100 ^View | tail -n +2 | grep -v ^$ | sed -e 's@^[[:blank:]]*@@'"
-alias gitp4list="gitp4client | sed -e 's@\\.\\.\\.@@g'"
-alias gitp4clone="gitp4list | sed -e 's@ //[^/]*/@ @' -e 's@^\([^ ]\+\) \([^ ]\+\)\$@git p4 clone --destination=\2 \1\@all@'"
-alias gitp4cloneall='gitp4clone | while read line; do ${line}; done'
-alias gitp4buildlink='for i in $(gitp4list | sed -e "s@.* //[^/]*/@@" -e "s@/\$@@") ; do if [ ! -a $PWD/${i##*/} ] ; then mkdir -p $i &> /dev/null ; rmdir $i &> /dev/null && ( cd ${i%%/*} && ln -s ${PWD%%-git*}-p4/$i .) ; fi done'
-alias gitp4rebaseall='for i in $(find . -name .git -type d) ; do (cd ${i}/.. && git p4 rebase) ; done'
-alias gitp4status='for i in $(find . -name .git -type d) ; do (cd ${i}/.. && echo $(pwd) && git status) ; done'
-alias gg='cd ${PWD%%-p4*}-git'
-alias gp='cd ${PWD%%-git*}-p4'
+alias dspy='source /opt/sp/ds-pyenv36/latest/enable'
 
 #-------------------------------------------------------------
 # Tmux 
