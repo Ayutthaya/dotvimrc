@@ -10,6 +10,9 @@
 
 alias dspy='source /opt/sp/ds-pyenv36/latest/enable'
 alias q='/opt/sp/qlib/3.6.x86_64/q'
+alias tig='~/bin/tig'
+alias sane='stty sane'
+alias sp_ssh='/opt/sp/plat/scripts/sp_ssh'
 
 #-------------------------------------------------------------
 # Tmux 
