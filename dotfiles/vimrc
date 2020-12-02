@@ -178,6 +178,10 @@ set foldmethod=marker
 set foldlevelstart=20
 autocmd FileType python setlocal foldmethod=marker foldnestmax=20
 
+" Load filetype plugins!
+" https://vi.stackexchange.com/questions/11869/why-are-ftplugins-ignored
+filetype plugin on
+
 " Slime with tmux
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
