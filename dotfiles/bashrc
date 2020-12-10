@@ -16,6 +16,12 @@ alias sp_ssh='/opt/sp/plat/scripts/sp_ssh'
 alias notebook='jupyter notebook --certfile ~/ssl/mycert.pem --keyfile ~/ssl/mykey.key --ip '0.0.0.0' --port 16856'
 
 #-------------------------------------------------------------
+# pip
+#-------------------------------------------------------------
+
+piplist() { pip install -v ${1}==alskdjflaksjdfl 2>/dev/null | grep "Found link" | awk -F 'version: ' '{print $2}' | tr '\n' ' '; }
+
+#-------------------------------------------------------------
 # Tmux 
 #-------------------------------------------------------------
 
